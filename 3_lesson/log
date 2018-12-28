@@ -1,0 +1,38 @@
+g++ -o tcpServer tcpServer.cc -std=c++11 -static -lpthread
+In file included from tcpServer.hpp:16:0,
+                 from tcpServer.cc:1:
+threadPool.hpp: In member function ‘void ThreadPool::ThreadIdle()’:
+threadPool.hpp:51:36: error: too few arguments to function ‘int pthread_cond_wait(pthread_cond_t*, pthread_mutex_t*)’
+             pthread_cond_wait(&cond);
+                                    ^
+In file included from /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr-default.h:35:0,
+                 from /usr/include/c++/4.8.2/x86_64-redhat-linux/bits/gthr.h:148,
+                 from /usr/include/c++/4.8.2/ext/atomicity.h:35,
+                 from /usr/include/c++/4.8.2/bits/ios_base.h:39,
+                 from /usr/include/c++/4.8.2/ios:42,
+                 from /usr/include/c++/4.8.2/ostream:38,
+                 from /usr/include/c++/4.8.2/iostream:39,
+                 from tcpServer.hpp:4,
+                 from tcpServer.cc:1:
+/usr/include/pthread.h:992:12: note: declared here
+ extern int pthread_cond_wait (pthread_cond_t *__restrict __cond,
+            ^
+In file included from tcpServer.hpp:16:0,
+                 from tcpServer.cc:1:
+threadPool.hpp:52:13: error: ‘idle_num’ was not declared in this scope
+             idle_num--;
+             ^
+threadPool.hpp: In member function ‘void ThreadPool::PushTask(const Task&)’:
+threadPool.hpp:94:25: error: ‘UnlockQueue’ was not declared in this scope
+             UnlockQueue();
+                         ^
+In file included from tcpServer.cc:1:0:
+tcpServer.hpp: In member function ‘void Server::InitServer()’:
+tcpServer.hpp:63:17: error: base operand of ‘->’ has non-pointer type ‘ThreadPool’
+             pool->InitThreadPool();
+                 ^
+tcpServer.hpp: In member function ‘void Server::Run()’:
+tcpServer.hpp:109:22: error: ‘class ThreadPool’ has no member named ‘TaskPush’
+                 pool.TaskPush(t);
+                      ^
+make: *** [tcpServer] Error 1
